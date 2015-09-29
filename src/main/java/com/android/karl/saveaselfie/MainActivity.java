@@ -1,20 +1,24 @@
 package com.android.karl.saveaselfie;
 
+import android.os.Build;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private ImageButton floatingActionBtn;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +28,21 @@ public class MainActivity extends FragmentActivity {
         // Set up the map
         setUpMapIfNeeded();
 
-        // Initialise any buttons on the layout
-        floatingActionBtn = (ImageButton) findViewById(R.id.floatingActionButton);
+        // -------------- Initialise buttons & onClickListeners -----------------------
+        // Floating action button set up
+        ImageButton floatingActionBtn = (ImageButton) findViewById(R.id.floatingActionButton);
         floatingActionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Boop \uD83D\uDC31", Toast.LENGTH_SHORT).show();
+                makeToast("Boop \uD83D\uDC31");
             }
         });
+
+        // If Lollipop or Marshmallow, set the status bar up
+        if (Build.VERSION.RELEASE.startsWith("5")||Build.VERSION.RELEASE.startsWith("6")){
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
     @Override
@@ -40,41 +51,40 @@ public class MainActivity extends FragmentActivity {
         setUpMapIfNeeded();
     }
 
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
     private void setUpMapIfNeeded() {
+
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
+
+            FragmentManager fmanager = getSupportFragmentManager();
+            Fragment fragment = fmanager.findFragmentById(R.id.map);
+            SupportMapFragment supportmapfragment = (SupportMapFragment)fragment;
+            mMap = supportmapfragment.getMap();
+
+            // Check if the map was instantiated or not.
             if (mMap != null) {
                 setUpMap();
+            } else {
+                makeToast(getString(R.string.error_maps_not_loading));
             }
         }
     }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
+    }
+
     private void setUpMap() {
+        // Sample marker, for debugging purposes.
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
+
+    // This shows the user a toast with the message received inside.
+    // Input: string
+    // Output: void
+    public void makeToast (String message){
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+
 }
