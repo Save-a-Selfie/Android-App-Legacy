@@ -40,11 +40,6 @@
     <color name="background_floating_material_light">@android:color/white</color>
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
-    <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
-    <color name="black_semi_transparent">#B2000000</color>
-    <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -84,12 +79,6 @@
     <color name="dim_foreground_material_light">#ff323232</color>
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
-    <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/values/colors.xml -->
-    <eat-comment/>
-    <color name="green_post_button">#6bd169</color>
-    <color name="half_black">#670600</color>
-    <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
-    <eat-comment/>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
@@ -124,6 +113,9 @@
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
+    <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="upload_post_button">#64cfa0</color>
     <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.8.0/res/values/wallet_colors.xml -->
     <eat-comment/>
     <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
@@ -142,7 +134,6 @@
     <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="white">#FFFFFF</color>
-    <color name="white_pressed">#cccccc</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode"><enum name="normal" value="0"/><enum name="listMode" value="1"/><enum name="tabMode" value="2"/></attr><attr name="displayOptions"><flag name="none" value="0"/><flag name="useLogo" value="0x1"/><flag name="showHome" value="0x2"/><flag name="homeAsUp" value="0x4"/><flag name="showTitle" value="0x8"/><flag name="showCustom" value="0x10"/><flag name="disableHome" value="0x20"/></attr><attr name="title"/><attr format="string" name="subtitle"/><attr format="reference" name="titleTextStyle"/><attr format="reference" name="subtitleTextStyle"/><attr format="reference" name="icon"/><attr format="reference" name="logo"/><attr format="reference" name="divider"/><attr format="reference" name="background"/><attr format="reference|color" name="backgroundStacked"/><attr format="reference|color" name="backgroundSplit"/><attr format="reference" name="customNavigationLayout"/><attr name="height"/><attr format="reference" name="homeLayout"/><attr format="reference" name="progressBarStyle"/><attr format="reference" name="indeterminateProgressStyle"/><attr format="dimension" name="progressBarPadding"/><attr name="homeAsUpIndicator"/><attr format="dimension" name="itemPadding"/><attr format="boolean" name="hideOnContentScroll"/><attr format="dimension" name="contentInsetStart"/><attr format="dimension" name="contentInsetEnd"/><attr format="dimension" name="contentInsetLeft"/><attr format="dimension" name="contentInsetRight"/><attr format="dimension" name="elevation"/><attr format="reference" name="popupTheme"/></declare-styleable>
     <declare-styleable name="ActionBarLayout"><attr name="android:layout_gravity"/></declare-styleable>
     <declare-styleable name="ActionMenuItemView"><attr name="android:minWidth"/></declare-styleable>
@@ -256,7 +247,7 @@
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="button_height_and_width">75dp</dimen>
+    <dimen name="button_height_and_width">40dp</dimen>
     <dimen name="button_margin_top">15dp</dimen>
     <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/build/intermediates/exploded-aar/com.android.support/design/23.0.0/res/values/values.xml -->
     <eat-comment/>
@@ -297,6 +288,10 @@
     <item format="float" name="highlight_alpha_material_colored" type="dimen">0.26</item>
     <item format="float" name="highlight_alpha_material_dark" type="dimen">0.20</item>
     <item format="float" name="highlight_alpha_material_light" type="dimen">0.12</item>
+    <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="image_height">250dp</dimen>
+    <dimen name="image_margin_top">20dp</dimen>
     <!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="mr_media_route_controller_art_max_height">320dp</dimen>

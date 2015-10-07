@@ -25,9 +25,9 @@
             <!-- Image that the user wants to upload -->
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="250dp"
-                android:id="@+id/choosen_image"
-                android:layout_marginTop="20dp"
+                android:layout_height="@dimen/image_height"
+                android:id="@+id/image_choosen_by_user"
+                android:layout_marginTop="@dimen/image_margin_top"
                 />
 
             <!-- TYPE OF DEVICE THAT THE USER IS UPLOADING -->
@@ -36,8 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:orientation="horizontal"
-                android:id="@+id/device_selection_linear_layout"
-                android:background="#000000">
+                android:id="@+id/device_selection_linear_layout">
 
                 <View
                     android:layout_width="0dp"
@@ -47,7 +46,7 @@
 
                 <Button
                     android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="@dimen/button_height_and_width"
+                    android:layout_height="wrap_content"
                     android:id="@+id/device_button_01"
                     android:background="@drawable/unselected_defibrillator"
                     android:layout_marginTop="@dimen/button_margin_top"
@@ -62,7 +61,7 @@
 
                 <Button
                     android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="@dimen/button_height_and_width"
+                    android:layout_height="wrap_content"
                     android:id="@+id/device_button_02"
                     android:background="@drawable/unselected_life_ring"
                     android:layout_marginTop="@dimen/button_margin_top"
@@ -77,7 +76,7 @@
 
                 <Button
                     android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="@dimen/button_height_and_width"
+                    android:layout_height="wrap_content"
                     android:id="@+id/device_button_03"
                     android:background="@drawable/unselected_first_aid_kit"
                     android:layout_marginTop="@dimen/button_margin_top"
@@ -92,7 +91,7 @@
 
                 <Button
                     android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="@dimen/button_height_and_width"
+                    android:layout_height="wrap_content"
                     android:id="@+id/device_button_04"
                     android:background="@drawable/unselected_defibrillator"
                     android:layout_marginTop="@dimen/button_margin_top"
@@ -114,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android.support.design:hintTextAppearance="@style/TextAppearance.AppCompat">
                 <EditText
+                    android:maxLines="10"
                     android:maxLength="300"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                     android:fontFamily="sans-serif"
                     android:id="@+id/enter_text"
                     android:hint="@string/enter_your_comment"
-                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
                     />
             </android.support.design.widget.TextInputLayout>
 
