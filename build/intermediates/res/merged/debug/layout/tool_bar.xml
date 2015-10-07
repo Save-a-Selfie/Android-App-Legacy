@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tool_bar_"
+    android:title="toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/ColorPrimary"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+</android.support.v7.widget.Toolbar><!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/layout/tool_bar.xml -->

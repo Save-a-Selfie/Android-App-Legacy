@@ -1,0 +1,17 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"> </include>
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.android.karl.saveaselfie.InformationActivity" />
+</RelativeLayout><!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/layout/activity_information.xml -->

@@ -1,0 +1,7 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.karl.saveaselfie.InformationActivity">
+</menu>
+<!-- From: file:/C:/Users/hn/AndroidStudioProjects/SaveASelfie/app/src/main/res/menu/menu_information.xml -->

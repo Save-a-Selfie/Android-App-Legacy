@@ -1,12 +1,55 @@
 <!-- All strings for the application -->
 <resources>
     <string name="app_name">SAS</string>
-    <string name="title_activity_main">Map</string>
-
-    <!-- User error messages -->
-    <string name="error_maps_not_loading">Sorry! Unable to load maps</string>
-    <string name="title_activity_splash_screen">SplashScreen</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Debugging strings -->
+    <string name="maps_loaded_success">Maps loaded successfuly</string>
+    <string name="maps_ready">Maps ready for use</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <!-- Titles -->
+    <string name="sponsors">Sponsors</string>
+    <string name="title_activity_upload">UploadActivity</string>
+    <string name="title_activity_enter_upload">EnterUploadActivity</string>
+    <string name="title_activity_show_entry">ShowEntryActivity</string>
+    <string name="title_activity_main">Map</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_information">InformationActivity</string>
+
+    <!-- __________________________MainActivity_________________________________ -->
+    <!-- MainActivity Errors -->
+    <string name="error_maps_not_loading">Unable to load maps, trying again</string>
+
+    <!-- __________________________EnterUploadActivity__________________________ -->
+
+    <!--  EnterUploadActivity Strings -->
+    <string name="enter_location">Device location</string>
+    <string name="enter_device_type">Device type</string>
+    <string name="pinpoint_location">Location</string>
+    <string name="choose_image_location">Choose an image source</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="choose_an_image">Choose an image</string>
+    <string name="upload_image">POST</string>
+    <string name="enter_your_comment">Your comment</string>
+    <string name="upload_title">Upload</string>
+    <string name="defibrillator">Difibrillator</string>
+    <string name="first_aid_kit">First aid kit</string>
+    <string name="hydrant">Hydrant</string>
+    <string name="life_ring">Life ring</string>
+
+    <!-- EnterUploadActivity Errors -->
+    <string name="error_reading_in_photo">There was an error with the photo you have chosen, please try again</string>
+    <string name="error_locating_user">We were unable to locate your device</string>
+    <string name="error_data_needs_to_be_entered_comment">Unable to proceed, please enter your comment</string>
+    <string name="error_data_needs_to_be_entered_image">Unable to proceed, please add a photo</string>
+
+    <!-- _________________________________________________________________________ -->
+
 </resources>

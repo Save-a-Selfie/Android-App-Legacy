@@ -1,17 +1,31 @@
 package com.android.karl.saveaselfie;
 
-import android.content.res.Resources;
+/*
+*   SplashScreenActivity
+*   Author: Karl Jones
+*   Function: Show the user the splash screen of the application
+*
+* */
+
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.view.Window;
 import android.view.WindowManager;
+
+// TODO: Add SAS logo over splash screen
+// TODO: Ensure system bar is translucent on Android 5.x+
 
 public class SplashScreen extends Activity {
 
-    private int SplashScreenTimeout = 2500;
+    /*
+    *   To change the duration of the splash screen
+    *   change the SplashScreenSeconds and put the
+    *   duration in seconds, always needs to be x.x
+    * */
+    private double SplashScreenSeconds = 0.5; // needs to be changed to a larger double before release
+    private final double SplashScreenTimeout = SplashScreenSeconds * 1000;  // This should never be changed.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +38,10 @@ public class SplashScreen extends Activity {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
+        // Delay the changing of the intent
         new Handler().postDelayed(new Runnable() {
 
-            // This method is run after the timer has expired
+            // This method is run when the SlashScreenTimeout has expired
             @Override
             public void run() {
                 Intent i = new Intent(SplashScreen.this, MainActivity.class);
@@ -35,6 +50,6 @@ public class SplashScreen extends Activity {
                 overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
                 finish();
             }
-        }, SplashScreenTimeout);
+        }, (int)SplashScreenTimeout);
     }
 }

@@ -2,6 +2,12 @@
 
 <!-- Colors for the application -->
 <resources>
+
+    <!-- App specific colors -->
     <color name="ColorPrimary">#29c0ff</color>
     <color name="ColorPrimaryDark">#13bae6</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Upload activity specific -->
+    <color name="upload_post_button">#64cfa0</color>
 </resources>

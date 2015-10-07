@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.karl.saveaselfie"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <permission
+        android:name="com.android.karl.saveaselfie.permisson.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+ <!-- Permissions required for GCM -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name="com.android.karl.saveaselfie.MainActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+
+        <!-- Splash screen activity -->
+        <!-- This is the launcher activity because it is the first thing you want people to see -->
+        <activity
+            android:name="com.android.karl.saveaselfie.SplashScreen"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Information activity -->
+        <activity
+            android:name="com.android.karl.saveaselfie.InformationActivity"
+            android:label="@string/title_activity_information" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.karl.saveaselfie.MainActivity" />
+        </activity>
+
+        <!-- This is the window user inputs the information and uploads the photo to the server -->
+        <activity
+            android:name="com.android.karl.saveaselfie.UploadActivity"
+            android:label="@string/title_activity_upload"
+            android:parentActivityName="com.android.karl.saveaselfie.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.karl.saveaselfie.MainActivity" />
+        </activity>
+
+        <!-- This is the activity that is called when the user clicks on the map pin and shows the image and information on the data -->
+        <activity
+            android:name="com.android.karl.saveaselfie.ShowEntryActivity"
+            android:label="@string/title_activity_show_entry" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.karl.saveaselfie.MainActivity" />
+        </activity>
+        <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"
+            android:theme="@style/Theme.IAPTheme" />
+    </application>
+
+</manifest>

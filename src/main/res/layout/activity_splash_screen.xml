@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!-- Splash Screen layout -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF" >
 
-    <!-- Image for the splash screen -->
+    <!-- Not fully finished -->
+
+    <!-- Image for the splash screen background -->
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/splash_screen_logo" />
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/launch_screen_image"
+        />
+
+    <!-- Save a selfie logo -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_margin="10dp"
+        android:src="@drawable/save_a_selfie_logo" />
 
 </RelativeLayout>
