@@ -1,0 +1,12 @@
+<!-- All strings for the application -->
+<resources>
+    <string name="app_name">SAS</string>
+    <string name="title_activity_main">Map</string>
+
+    <!-- User error messages -->
+    <string name="error_maps_not_loading">Sorry! Unable to load maps</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>
