@@ -49,6 +49,7 @@
     <string name="error_locating_user">We were unable to locate your device</string>
     <string name="error_data_needs_to_be_entered_comment">Unable to proceed, please enter your comment</string>
     <string name="error_data_needs_to_be_entered_image">Unable to proceed, please add a photo</string>
+    <string name="cancel">Cancel</string>
 
     <!-- _________________________________________________________________________ -->
 

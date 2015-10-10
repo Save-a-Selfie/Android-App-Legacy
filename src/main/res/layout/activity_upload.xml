@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     xmlns:android.support.design="http://schemas.android.com/apk/res-auto"
     tools:context="com.android.karl.saveaselfie.UploadActivity"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:orientation="vertical">
 
     <include
         android:id="@+id/tool_bar"
@@ -24,87 +23,48 @@
 
             <!-- Image that the user wants to upload -->
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/image_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/image_choosen_by_user"
                 android:layout_marginTop="@dimen/image_margin_top"
+                android:layout_gravity="top|center"
                 />
 
             <!-- TYPE OF DEVICE THAT THE USER IS UPLOADING -->
             <!-- four buttons for the different devices, on click listeners to change from active and deactive -->
-            <LinearLayout
+            <TableLayout
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="180dp"
                 android:orientation="horizontal"
-                android:id="@+id/device_selection_linear_layout">
+                android:id="@+id/device_selection_table_layout">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1">
-                </View>
-
-                <Button
-                    android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/device_button_01"
-                    android:background="@drawable/unselected_defibrillator"
-                    android:layout_marginTop="@dimen/button_margin_top"
-                    android:layout_weight="1"
-                    />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1">
-                </View>
-
-                <Button
-                    android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/device_button_02"
-                    android:background="@drawable/unselected_life_ring"
-                    android:layout_marginTop="@dimen/button_margin_top"
-                    android:layout_weight="1"
-                    />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1">
-                </View>
-
-                <Button
-                    android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/device_button_03"
-                    android:background="@drawable/unselected_first_aid_kit"
-                    android:layout_marginTop="@dimen/button_margin_top"
-                    android:layout_weight="1"
-                    />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1">
-                </View>
-
-                <Button
-                    android:layout_width="@dimen/button_height_and_width"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/device_button_04"
-                    android:background="@drawable/unselected_defibrillator"
-                    android:layout_marginTop="@dimen/button_margin_top"
-                    android:layout_weight="1"
-                    />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1">
-                </View>
-
-            </LinearLayout>
+                <TableRow>
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/defib_button"
+                        android:src="@drawable/unselected_defibrillator"/>
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/life_ring_button"
+                        android:src="@drawable/unselected_life_ring"/>
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/first_aid_kit_button"
+                        android:src="@drawable/unselected_first_aid_kit"/>
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/hydrant_button"
+                        android:src="@drawable/unselected_fire_hydrant"/>
+                </TableRow>
+            </TableLayout>
 
             <!-- Comment the user is going to make -->
             <android.support.design.widget.TextInputLayout
