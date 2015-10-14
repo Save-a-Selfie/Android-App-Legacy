@@ -1,5 +1,12 @@
 package com.android.karl.saveaselfie;
 
+/*
+    ShowEntryActivity
+    Function: Show the user the information about the marker that they selected
+
+    Copyright (c) 2015 Karl Jones. All rights reserved.
+ */
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,25 +22,23 @@ public class ShowEntryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_entry);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_entry, menu);
-        return true;
+    public void setContent() {
+        // Get the content that is passed to the activity
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void initialiseViews() {
+        // TODO: INITIALISE VIEWS FOR THE LAYOUT HERE
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
+    public void showViews() {
+        // TODO: SHOW THE VIEWS OF THE LAYOUT
+    }
+
+    public void hideViews() {
+        // TODO: HIDE THE VIEWS OF THE LAYOUT
+
+        // The reason for this method is that it is to be used if there are any pop-outs, the views disappear behind it
+        // and reappear after the user is done with the dialog
     }
 }

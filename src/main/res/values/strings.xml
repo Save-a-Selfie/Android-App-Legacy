@@ -5,13 +5,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Debugging strings -->
+    <!-- Debugging strings, must be disabled before release -->
     <string name="maps_loaded_success">Maps loaded successfuly</string>
     <string name="maps_ready">Maps ready for use</string>
-
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
 
     <!-- Titles -->
     <string name="sponsors">Sponsors</string>

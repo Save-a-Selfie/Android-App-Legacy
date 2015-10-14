@@ -8,6 +8,7 @@
     <color name="ColorPrimaryDark">#13bae6</color>
     <color name="white">#FFFFFF</color>
     <color name="green_post_button">#000000</color>
+    <color name="light_grey">#6b6a6a6a</color>
 
     <!-- Upload activity specific -->
     <color name="upload_post_button">#64cfa0</color>

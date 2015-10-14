@@ -1,16 +1,17 @@
 package com.android.karl.saveaselfie;
 
 /*
-*   MainActivity
-*   Author: Karl Jones
-*   Function: The main screen of the application,
-*   this shows the user the map and the locations
-*   of the emergency equipment from the servers
-*
-* */
+    MainActivity
+    Function: Show the markers on a map for the user to easily see
 
+    Copyright (c) 2015 Karl Jones. All rights reserved.
+ */
+
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -41,7 +43,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set up the map
+
         setUpMapIfNeeded();
 
         // -------------- Initialise buttons & onClickListeners -----------------------
@@ -54,15 +56,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        /*
-        *   This method targets android 5.+ and 6.+ to change the system bar and set the status colour
-        *   This is needed to avoid a null pointer exception being created with older android devices.
-        * */
-        if (Build.VERSION.RELEASE.startsWith("5")|| Build.VERSION.RELEASE.startsWith("6")) {
-            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            this.getWindow().setStatusBarColor(this.getResources().getColor(R.color.ColorPrimaryDark));
-        }
+        // Set up the statusbar
+        setUpStatusBarLollipop();
+        // setUpStatusBarMarshmallow();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void setUpStatusBarLollipop() {
+        this.getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
     @Override
@@ -73,23 +74,23 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     /*
     *   Sets up the map for use
+    *   Ensure that it loads on app start up
     * */
 
-    GoogleMap supportmapfragment;
-
+    private GoogleMap supportmapfragment;
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (supportmapfragment == null) {
-            supportmapfragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+            supportmapfragment = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
             // Check if the map was instantiated or not.
             if (supportmapfragment != null) {
                 setUpMap();
             } else {
-                makeToast(getString(R.string.error_maps_not_loading));
+                makeSnackbar(getString(R.string.error_maps_not_loading));
             }
         } else {
-            makeToast(getString(R.string.maps_loaded_success));
+            makeSnackbar("Maps loaded sucessfully");
         }
     }
 
@@ -108,9 +109,27 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     * */
     ArrayList<Marker> markers = new ArrayList<Marker>();
     private void setUpMap() {
-        // Sample marker, for debugging purposes.
+
         // TODO: Get the markers from the server and add them to the map
+
+        // Set the map type
+        supportmapfragment.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        // UI setting for the locate me button
+        supportmapfragment.getUiSettings().setMyLocationButtonEnabled(true);
+
+        // UI setting for gestures for zooming
+        supportmapfragment.getUiSettings().setZoomGesturesEnabled(true);
+
+        // UI setting for gestures for rotating
+        supportmapfragment.getUiSettings().setRotateGesturesEnabled(true);
+
+        // Debugging marker, needs to be removed before release
         supportmapfragment.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("This is a test"));
+
+        // TODO: LOOP TO READ IN ALL OF THE MARKERS FROM THE SERVER AND ADD THEM INTO THE PROGRAM
+
+        // Add the markers to the map, checking the type and adding the correct icons to the map
         for(int i = 0; i < markers.size() ; i++ ) {
             if(markers.get(i).getType().equals(TYPE_DEFIB)){
                 // If the type is defib then set the icon to a specific type
@@ -121,19 +140,27 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             } else if (markers.get(i).getType().equals(TYPE_HYDRANTS)){
                 // If the type is a hydrant
             } else {
-                // Else just add a regular marker
+                // Do not show the marker and remove it from the arraylist as this is an error
             }
-        }
+        } // End for
     }
     private void getMarkersFromServer() {
+        // This needs to get the markers from the server
     }
 
     /*
     *   This shows the user a toast with the message received inside.
-    *   Input: string
-    *   Output: void
+    *   @param message to be displayed
+    *   @return void
     * */
     public void makeToast (String message){Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();}
+
+    /*
+        This shows the user a snackbar with the message received inside.
+        @param message to be displayed
+        @return void
+     */
+    public void makeSnackbar(String message) {Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();}
 
     /*
     *   This method sends the user to the activity to upload their photo

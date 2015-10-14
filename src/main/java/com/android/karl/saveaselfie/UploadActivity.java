@@ -1,5 +1,13 @@
 package com.android.karl.saveaselfie;
 
+/*
+    UploadActivity
+    Function: Get the user to input information into the system for upload
+
+    Copyright (c) 2015 Karl Jones. All rights reserved.
+ */
+
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,11 +15,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,21 +30,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/*
-*   This activity is in control of the uploads that the user makes, it allows the user to enter the intofmration about
-*   the entry that they are uploading, the image that they are uploading, the location and any other information
-*   that the entry requires. It allows the user to choose the image that they want to use.
-* */
-
-// TODO: Add clear all menu button
+// TODO: Add clear all menu button, add icon to the menu item
 // TODO: Have the image scale into an ImageView correctly
 // TODO: Settle layout
 
@@ -56,6 +58,8 @@ public class UploadActivity extends AppCompatActivity {
 
     public TableLayout device_selection_layout;
 
+    public TextView text_view_device_type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +78,7 @@ public class UploadActivity extends AppCompatActivity {
         *   This method targets android 5.+ and 6.+ to change the system bar and set the status colour
         *   This is needed to avoid a null pointer exception being created with older android devices.
         * */
-        if (Build.VERSION.RELEASE.startsWith("5")|| Build.VERSION.RELEASE.startsWith("6")) {
-            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            this.getWindow().setStatusBarColor(this.getResources().getColor(R.color.ColorPrimaryDark));
-        }
+        setUpStatusBar();
 
         // Set up the views of the layout
         setUpViews();
@@ -91,6 +91,15 @@ public class UploadActivity extends AppCompatActivity {
 
         // Get the photo that the user wants to upload into the system
         selectImage();
+    }
+
+    //  This sets up the status bar for devices 5.x +
+    public void setUpStatusBar() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            this.getWindow().setStatusBarColor(this.getResources().getColor(R.color.ColorPrimaryDark));
+        }
     }
 
     public final static int REQUEST_CAMERA = 1;
@@ -134,7 +143,11 @@ public class UploadActivity extends AppCompatActivity {
             if (requestCode == REQUEST_CAMERA){
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                try {
+                    thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                } catch (NullPointerException e){
+                    e.printStackTrace();
+                }
 
                 File destination = new File (Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
 
@@ -145,14 +158,13 @@ public class UploadActivity extends AppCompatActivity {
                     fo = new FileOutputStream(destination);
                     fo.write(bytes.toByteArray());
                     fo.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
+                // Rotation needs ot be fixed, image read in from camera does not rotate
                 Matrix matrix = new Matrix();
-                matrix.postRotate(-90);
+                matrix.postRotate(90);
                 Bitmap rotatedBitmap = Bitmap.createBitmap(thumbnail, 0, 0, thumbnail.getWidth(), thumbnail.getHeight(), matrix, true);
 
                 image.setImageBitmap(rotatedBitmap);
@@ -198,19 +210,19 @@ public class UploadActivity extends AppCompatActivity {
     *   This method checks that the required fields needed for the
     *   entry have been filled in. If this has validated it successfully,
     *   then passs the data on to be uploaded to the server
-    *   Returns true if everything is okay.
+    *   @return true if everything is okay.
     * */
     public boolean validateAndUpload() {
 
         // Ensure the user has put in their comment
         if(userComment.getText().toString().equals("")) {
-            Toast.makeText(UploadActivity.this, R.string.error_data_needs_to_be_entered_comment, Toast.LENGTH_SHORT).show();
+            makeSnackbar(getString(R.string.error_data_needs_to_be_entered_comment));
             return false;
         }
 
         // Ensure the user has entered an image to upload
         if(image.getDrawable() == null) {
-            Toast.makeText(UploadActivity.this, R.string.error_data_needs_to_be_entered_image, Toast.LENGTH_SHORT).show();
+            makeSnackbar(getString(R.string.error_data_needs_to_be_entered_image));
             return false;
         }
 
@@ -220,21 +232,36 @@ public class UploadActivity extends AppCompatActivity {
 
     /*
     *   Push the information to the server, called from validateAndUpload()
-    *   Returns true if the data has been successful.
-    *   Return false if the data has not been successful.
+    *   @return true if the data has been successful.
+    *   @return false if the data has not been successful.
     * */
     public boolean pushToServer() {
+        // TODO: Finish method to push to the server
+
         return true;
     }
 
-    // Set the type of device that the user is uploading
+
     final public static String DEFIBRILLATOR = "Defibrillator";
     final public static String LIFE_RING = "Life Ring";
     final public static String FIRST_AID_KIT = "First Aid Kit";
     final public static String HYDRANT = "Hydrant";
     public String device_type;
 
+    /*
+        Set the device type that the user is uploading
+        @param type - type of device that the user is uploading
+     */
     public void setDeviceType(String type) {
+        switch(type){
+            case DEFIBRILLATOR:
+                device_type = DEFIBRILLATOR;
+                break;
+            case LIFE_RING:
+                device_type = LIFE_RING;
+                break;
+
+        }
         if (type.equals(DEFIBRILLATOR)) {
             device_type = DEFIBRILLATOR;
         } else if (type.equals(LIFE_RING)) {
@@ -252,25 +279,44 @@ public class UploadActivity extends AppCompatActivity {
     public void setDeviceDefibrillator() {
         setDeviceType(DEFIBRILLATOR);
 
-        // Set the defib image to be highlighted, changing the other three
+        // Show the right device to be selected
+        button_difib.setImageResource(R.drawable.selected_defibrillator);
+        button_first_aid_kit.setImageResource(R.drawable.unselected_first_aid_kit);
+        button_life_ring.setImageResource(R.drawable.unselected_life_ring);
+        button_hydrant.setImageResource(R.drawable.unselected_fire_hydrant);
     }
 
     // The user has selected the first aid kit
     public void setDeviceFirstAidKit() {
         setDeviceType(FIRST_AID_KIT);
 
+        // Show the right device to be selected
+        button_difib.setImageResource(R.drawable.unselected_defibrillator);
+        button_first_aid_kit.setImageResource(R.drawable.selected_first_aid_kit);
+        button_life_ring.setImageResource(R.drawable.unselected_life_ring);
+        button_hydrant.setImageResource(R.drawable.unselected_fire_hydrant);
     }
 
     // The user has selected the life ring
     public void setDeviceLifeRing() {
         setDeviceType(LIFE_RING);
 
+        // Show the right device to be selected
+        button_difib.setImageResource(R.drawable.unselected_defibrillator);
+        button_first_aid_kit.setImageResource(R.drawable.unselected_first_aid_kit);
+        button_life_ring.setImageResource(R.drawable.selected_life_ring);
+        button_hydrant.setImageResource(R.drawable.unselected_fire_hydrant);
     }
 
     // The user has selected the hydrant
     public void setDeviceHydrant() {
         setDeviceType(HYDRANT);
 
+        // Show the right device to be selected
+        button_difib.setImageResource(R.drawable.unselected_defibrillator);
+        button_first_aid_kit.setImageResource(R.drawable.unselected_first_aid_kit);
+        button_life_ring.setImageResource(R.drawable.unselected_life_ring);
+        button_hydrant.setImageResource(R.drawable.selected_fire_hydrant);
     }
 
     // Set up views
@@ -286,9 +332,11 @@ public class UploadActivity extends AppCompatActivity {
         userComment = (EditText) findViewById(R.id.enter_text);
 
         device_selection_layout = (TableLayout) findViewById(R.id.device_selection_table_layout);
-    }
 
-    // Set up listners
+        text_view_device_type = (TextView) findViewById(R.id.enter_device_text_view);
+    }   // End setUpViews()
+
+    // Set up listeners
     public void setUpListeners() {
 
         // What to do when the user clicks on the image
@@ -312,28 +360,28 @@ public class UploadActivity extends AppCompatActivity {
         button_difib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Defib", Toast.LENGTH_SHORT).show();
+                setDeviceDefibrillator();
             }
         });
         button_life_ring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Life ring", Toast.LENGTH_SHORT).show();
+                setDeviceLifeRing();
             }
         });
         button_first_aid_kit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "First Aid Kit", Toast.LENGTH_SHORT).show();
+                setDeviceFirstAidKit();
             }
         });
         button_hydrant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Hydrant", Toast.LENGTH_SHORT).show();
+                setDeviceHydrant();
             }
         });
-    }
+    }   // End setUpListeners();
 
     // Hide all the views
     public void hideViews() {
@@ -341,7 +389,8 @@ public class UploadActivity extends AppCompatActivity {
         btnUpload.setVisibility(View.GONE);
         userComment.setVisibility(View.GONE);
         device_selection_layout.setVisibility(View.GONE);
-    }
+        text_view_device_type.setVisibility(View.GONE);
+    }   // End hideViews()
 
     // Show all the views
     public void showViews() {
@@ -349,5 +398,14 @@ public class UploadActivity extends AppCompatActivity {
         btnUpload.setVisibility(View.VISIBLE);
         userComment.setVisibility(View.VISIBLE);
         device_selection_layout.setVisibility(View.VISIBLE);
-    }
+        text_view_device_type.setVisibility(View.VISIBLE);
+    }   // End showViews()
+
+    /*
+        This shows the user a snackbar with the message received inside.
+        @param message to be displayed
+        @return void
+     */
+    public void makeSnackbar(String message) {Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();}
+
 }

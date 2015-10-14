@@ -1,6 +1,11 @@
 package com.android.karl.saveaselfie;
 
+/*
+    Marker.java
+    Marker class
 
+    Copyright (c) 2015 Karl Jones. All rights reserved.
+ */
 public class Marker {
 
     private double longitude = 0.0;
@@ -9,7 +14,7 @@ public class Marker {
     private String type = null;
     private int id = 0;
 
-    // Constructors, the name and the type cannot be null, also needs a picture attached to it.
+    // Constructors, the name and the type cannot be null in the database, also needs a picture attached to it, saved as a bitmap.
     public Marker(String name, String type) {
         this.message = name;
         this.type = type;
@@ -38,12 +43,12 @@ public class Marker {
         this.latitude = latitude;
     }
 
-    public String getName() {
+    public String getMessage() {
         return message;
     }
 
-    public void setName(String name) {
-        this.message = name;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getType() {
@@ -53,4 +58,8 @@ public class Marker {
     public void setType(String type) {
         this.type = type;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }
